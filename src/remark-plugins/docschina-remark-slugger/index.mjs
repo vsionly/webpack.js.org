@@ -30,6 +30,26 @@ function transformer(ast) {
     }
     data.id = id;
     props.id = id;
+
+    // insert <span id="..." /> for headings
+    node.children = [
+      {
+        type: 'paragraph',
+        data: {
+          hName: 'span',
+          hProperties: {
+            id,
+          },
+        },
+        children: [
+          {
+            type: 'text',
+            value: '',
+          },
+        ],
+      },
+      ...node.children,
+    ];
   }
 }
 
